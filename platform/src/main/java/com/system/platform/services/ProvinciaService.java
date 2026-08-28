@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -35,6 +36,10 @@ public class ProvinciaService {
         );
     }
 
+    public List<Provincia> getAll() {
+        return this.provinciaRepository.findAll();
+    }
+
     @Transactional
     public Provincia updateById(UUID id, ProvinciaDTO.Update data) {
         Provincia provincia = this.getById(id);
@@ -45,12 +50,8 @@ public class ProvinciaService {
 
     @Transactional
     public void deleteById(UUID id) {
-        boolean b = this.provinciaRepository.existsById(id);
-        if (!b) {
-            throw new EntityNotFoundException("No fue encontrada la provincia con id " + id);
-        }
-
-        this.provinciaRepository.deleteById(id);
+        Provincia provincia = this.getById(id);
+        this.provinciaRepository.delete(provincia);
     }
 
 }

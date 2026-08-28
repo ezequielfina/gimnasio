@@ -9,11 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/geo/provincias")
+@RequestMapping("/geo/provincias")
 public class ProvinciaController {
     private final ProvinciaService provinciaService;
 
@@ -33,6 +35,18 @@ public class ProvinciaController {
         return ResponseEntity.status(HttpStatus.OK).body(
                 ProvinciaDTO.Response.fromEntity(provincia)
         );
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProvinciaDTO.Response>> readAll() {
+        List<Provincia> provincias = this.provinciaService.getAll();
+        List<ProvinciaDTO.Response> listaDto = new ArrayList<>();
+
+        for (Provincia p : provincias) {
+            listaDto.add(ProvinciaDTO.Response.fromEntity(p));
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(listaDto);
     }
 
     @PatchMapping("/{id}")

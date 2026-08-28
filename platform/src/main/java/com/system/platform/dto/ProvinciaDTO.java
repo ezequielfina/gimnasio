@@ -8,6 +8,10 @@ import java.util.UUID;
 public final class ProvinciaDTO {
     private ProvinciaDTO() {}
 
+    public record Base(
+            UUID id
+    ) {}
+
     public record Create(
             String nombre
     ) {}

@@ -15,7 +15,7 @@ import java.util.UUID;
 public class Localidad extends EntityBase{
 
     @Column(name = "localidad", nullable = false, length = 100)
-    private String localidad;
+    private String nombre;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_partido", nullable = false)
