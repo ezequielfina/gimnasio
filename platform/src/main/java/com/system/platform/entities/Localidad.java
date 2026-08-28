@@ -12,10 +12,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Localidad {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Localidad extends EntityBase{
 
     @Column(name = "localidad", nullable = false, length = 100)
     private String localidad;

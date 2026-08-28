@@ -2,8 +2,7 @@ package com.system.platform.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "provincias", schema = "geo")
@@ -11,13 +10,9 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Provincia {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
+@SuperBuilder
+public class Provincia extends EntityBase {
     @Column(name = "provincia", nullable = false, length = 75)
-    private String provincia;
+    private String nombre;
 
 }

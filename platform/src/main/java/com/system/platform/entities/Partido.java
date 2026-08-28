@@ -12,10 +12,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Partido {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class Partido extends EntityBase {
 
     @Column(name = "partido", nullable = false, length = 100)
     private String partido;
