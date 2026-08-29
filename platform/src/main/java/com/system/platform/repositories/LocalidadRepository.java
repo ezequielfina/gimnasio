@@ -1,7 +1,7 @@
 package com.system.platform.repositories;
 
-import com.system.platform.entities.Localidad;
-import com.system.platform.entities.Partido;
+import com.system.platform.entities.geo.Localidad;
+import com.system.platform.entities.geo.Partido;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

@@ -1,9 +1,8 @@
-package com.system.platform.entities;
+package com.system.platform.entities.geo;
 
+import com.system.platform.entities.EntityBase;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "partidos", schema = "geo")

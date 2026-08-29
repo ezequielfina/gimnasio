@@ -1,5 +1,6 @@
-package com.system.platform.entities;
+package com.system.platform.entities.geo;
 
+import com.system.platform.entities.EntityBase;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

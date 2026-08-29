@@ -1,9 +1,8 @@
-package com.system.platform.entities;
+package com.system.platform.entities.geo;
 
+import com.system.platform.entities.EntityBase;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "localidades", schema = "geo")
@@ -12,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Localidad extends EntityBase{
+public class Localidad extends EntityBase {
 
     @Column(name = "localidad", nullable = false, length = 100)
     private String nombre;

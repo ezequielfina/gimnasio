@@ -1,6 +1,6 @@
 package com.system.platform.repositories;
 
-import com.system.platform.entities.Provincia;
+import com.system.platform.entities.geo.Provincia;
 import org.jspecify.annotations.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 

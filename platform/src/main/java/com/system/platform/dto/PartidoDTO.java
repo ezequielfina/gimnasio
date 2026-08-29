@@ -1,6 +1,6 @@
 package com.system.platform.dto;
 
-import com.system.platform.entities.Partido;
+import com.system.platform.entities.geo.Partido;
 import jakarta.annotation.Nullable;
 
 import java.util.UUID;

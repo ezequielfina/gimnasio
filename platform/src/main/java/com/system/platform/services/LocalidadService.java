@@ -2,8 +2,8 @@ package com.system.platform.services;
 
 import com.system.platform.common.exception.RecursoDuplicadoException;
 import com.system.platform.dto.LocalidadDTO;
-import com.system.platform.entities.Localidad;
-import com.system.platform.entities.Partido;
+import com.system.platform.entities.geo.Localidad;
+import com.system.platform.entities.geo.Partido;
 import com.system.platform.repositories.LocalidadRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

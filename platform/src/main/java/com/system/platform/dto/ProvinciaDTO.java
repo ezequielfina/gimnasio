@@ -1,7 +1,6 @@
 package com.system.platform.dto;
 
-import com.system.platform.entities.Provincia;
-import jakarta.validation.constraints.NotBlank;
+import com.system.platform.entities.geo.Provincia;
 
 import java.util.UUID;
 

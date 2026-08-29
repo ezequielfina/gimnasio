@@ -1,7 +1,7 @@
 package com.system.platform.controllers;
 
 import com.system.platform.dto.PartidoDTO;
-import com.system.platform.entities.Partido;
+import com.system.platform.entities.geo.Partido;
 import com.system.platform.services.PartidoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

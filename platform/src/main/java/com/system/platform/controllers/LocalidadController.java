@@ -1,7 +1,7 @@
 package com.system.platform.controllers;
 
 import com.system.platform.dto.LocalidadDTO;
-import com.system.platform.entities.Localidad;
+import com.system.platform.entities.geo.Localidad;
 import com.system.platform.services.LocalidadService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

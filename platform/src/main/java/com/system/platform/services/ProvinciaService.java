@@ -2,7 +2,7 @@ package com.system.platform.services;
 
 import com.system.platform.common.exception.DataIntegrityViolationException;
 import com.system.platform.dto.ProvinciaDTO;
-import com.system.platform.entities.Provincia;
+import com.system.platform.entities.geo.Provincia;
 import com.system.platform.repositories.ProvinciaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
