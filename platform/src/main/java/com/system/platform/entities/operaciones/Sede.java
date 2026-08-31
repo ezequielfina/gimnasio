@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "sedes", schema = "operaciones")
@@ -22,7 +24,9 @@ public class Sede extends EntityBase {
     private String nombre;
 
     @ColumnDefault("'CORE'")
-    @Column(name = "tipo_sede", columnDefinition = "tipo_sede not null")
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "tipo_sede", columnDefinition = "operaciones.tipo_sede not null")
     private TipoSede tipoSede;
 
     @NotNull

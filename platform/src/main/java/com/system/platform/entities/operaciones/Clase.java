@@ -4,6 +4,8 @@ import com.system.platform.entities.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalTime;
 
@@ -24,6 +26,8 @@ public class Clase extends EntityBase {
     @JoinColumn(name = "id_profesor")
     private Profesor profesor;
 
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name = "dia", columnDefinition = "dia not null")
     private Dia dia;
 

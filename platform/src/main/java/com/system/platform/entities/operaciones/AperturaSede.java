@@ -4,6 +4,8 @@ import com.system.platform.entities.EntityBase;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalTime;
 
@@ -20,7 +22,9 @@ public class AperturaSede extends EntityBase {
     @JoinColumn(name = "id_sede", nullable = false)
     private Sede sede;
 
-    @Column(name = "dia", columnDefinition = "dia not null")
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "dia", columnDefinition = "operaciones.dia not null")
     private Dia dia;
 
     @NotNull

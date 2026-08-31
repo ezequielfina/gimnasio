@@ -1,0 +1,1 @@
+drop table operaciones.inscripciones_recurrentes cascade;

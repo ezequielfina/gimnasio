@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.LocalDate;
 
@@ -31,6 +33,8 @@ public class Sesion extends EntityBase {
     private LocalDate fecha;
 
     @ColumnDefault("'PROGRAMADA'")
-    @Column(name = "estado", columnDefinition = "estado_sesion not null")
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "estado", columnDefinition = "operaciones.estado_sesion not null")
     private EstadoSesion estado;
 }
