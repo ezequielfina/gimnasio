@@ -43,13 +43,4 @@ public class Perfil extends EntityBase {
     @JoinColumn(name = "id_localidad", nullable = false)
     private Localidad localidad;
 
-    @NotNull
-    @ColumnDefault("now()")
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
-    @NotNull
-    @ColumnDefault("now()")
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
 }

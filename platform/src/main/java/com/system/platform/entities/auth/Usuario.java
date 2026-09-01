@@ -44,13 +44,4 @@ public class Usuario extends EntityBase {
     @Column(name = "rol", columnDefinition = "auth.roles not null")
     private Rol rol;
 
-    @NotNull
-    @ColumnDefault("now()")
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
-    @NotNull
-    @ColumnDefault("now()")
-    @Column(name = "updated_at", nullable = false)
-    private Instant updatedAt;
 }
