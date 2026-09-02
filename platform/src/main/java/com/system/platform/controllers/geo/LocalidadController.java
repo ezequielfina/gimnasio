@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,11 +21,13 @@ public class LocalidadController {
     private final LocalidadService localidadService;
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<LocalidadDTO.Response> create(@Valid @RequestBody LocalidadDTO.Create data) {
         Localidad localidad = this.localidadService.create(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(LocalidadDTO.Response.fromEntity(localidad));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     @GetMapping("/{id}")
     public ResponseEntity<LocalidadDTO.Response> getById(@PathVariable UUID id) {
         Localidad localidad = this.localidadService.readById(id);
@@ -32,6 +35,7 @@ public class LocalidadController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
     public ResponseEntity<List<LocalidadDTO.Response>> getAll() {
         List<Localidad> localidades = this.localidadService.readAll();
         List<LocalidadDTO.Response> listaDTO = new ArrayList<>();
@@ -44,12 +48,14 @@ public class LocalidadController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<LocalidadDTO.Response> update(@PathVariable UUID id, @Valid @RequestBody LocalidadDTO.Update data) {
         Localidad localidad = this.localidadService.update(id, data);
         return ResponseEntity.status(HttpStatus.OK).body(LocalidadDTO.Response.fromEntity(localidad));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.localidadService.deleteById(id);
         return ResponseEntity.noContent().build();

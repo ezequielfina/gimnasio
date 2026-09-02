@@ -13,9 +13,12 @@ public final class UsuarioDTO {
     public record Create (
             String username,
             String password,
-            String email,
-            boolean isEnabled,
-            Rol rol
+            String email
+    ) {}
+
+    public record Login (
+            String username,
+            String password
     ) {}
 
     public record Response (

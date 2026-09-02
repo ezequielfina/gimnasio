@@ -8,8 +8,13 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios", schema = "auth")
@@ -18,7 +23,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Usuario extends EntityBase {
+public class Usuario extends EntityBase implements UserDetails {
     @Size(max = 30)
     @NotNull
     @Column(name = "username", nullable = false, length = 30)
@@ -44,4 +49,14 @@ public class Usuario extends EntityBase {
     @Column(name = "rol", columnDefinition = "auth.roles not null")
     private Rol rol;
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(this.rol.name()));
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return Boolean.TRUE.equals(this.isEnabled);
+    }
 }
