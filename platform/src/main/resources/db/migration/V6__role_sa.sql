@@ -1,0 +1,1 @@
+alter type auth.roles add value if not exists 'ROLE_SA';

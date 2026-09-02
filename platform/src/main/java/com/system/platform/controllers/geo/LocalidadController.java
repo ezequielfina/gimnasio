@@ -21,13 +21,13 @@ public class LocalidadController {
     private final LocalidadService localidadService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<LocalidadDTO.Response> create(@Valid @RequestBody LocalidadDTO.Create data) {
         Localidad localidad = this.localidadService.create(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(LocalidadDTO.Response.fromEntity(localidad));
     }
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     @GetMapping("/{id}")
     public ResponseEntity<LocalidadDTO.Response> getById(@PathVariable UUID id) {
         Localidad localidad = this.localidadService.readById(id);
@@ -35,7 +35,7 @@ public class LocalidadController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     public ResponseEntity<List<LocalidadDTO.Response>> getAll() {
         List<Localidad> localidades = this.localidadService.readAll();
         List<LocalidadDTO.Response> listaDTO = new ArrayList<>();
@@ -48,14 +48,14 @@ public class LocalidadController {
     }
 
     @PatchMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<LocalidadDTO.Response> update(@PathVariable UUID id, @Valid @RequestBody LocalidadDTO.Update data) {
         Localidad localidad = this.localidadService.update(id, data);
         return ResponseEntity.status(HttpStatus.OK).body(LocalidadDTO.Response.fromEntity(localidad));
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.localidadService.deleteById(id);
         return ResponseEntity.noContent().build();

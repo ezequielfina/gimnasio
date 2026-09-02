@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class PartidoController {
     private final PartidoService partidoService;
 
     @PostMapping
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<PartidoDTO.Response> create(@Valid @RequestBody PartidoDTO.Create data) {
         Partido partido = this.partidoService.create(data);
 
@@ -30,6 +32,7 @@ public class PartidoController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN', 'SA')")
     public ResponseEntity<PartidoDTO.Response> getById(@PathVariable UUID id) {
         Partido partido = this.partidoService.readById(id);
 
@@ -37,6 +40,7 @@ public class PartidoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('USUARIO', 'ADMIN', 'SA')")
     public ResponseEntity<List<PartidoDTO.Response>> getAll() {
         List<Partido> partidos = this.partidoService.readAll();
         List<PartidoDTO.Response> listaDTO = new ArrayList<>();
@@ -49,6 +53,7 @@ public class PartidoController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<PartidoDTO.Response> update(@PathVariable UUID id, @Valid @RequestBody PartidoDTO.Update data) {
         Partido partido = this.partidoService.update(id, data);
 
@@ -56,6 +61,7 @@ public class PartidoController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.partidoService.deleteById(id);
 

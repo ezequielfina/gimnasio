@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,9 +21,23 @@ public class AuthController {
     private final UsuarioService authService;
     private final CookieService cookieService;
 
-    @PostMapping("/register")
-    public ResponseEntity<UsuarioDTO.Response> register(@Valid @RequestBody UsuarioDTO.Create data) {
-        Usuario nuevoUsuario = this.authService.register(data);
+    @PostMapping("/register/usuario")
+    public ResponseEntity<UsuarioDTO.Response> registerUsuario(@Valid @RequestBody UsuarioDTO.Create data) {
+        Usuario nuevoUsuario = this.authService.registerUsuario(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDTO.Response.fromEntity(nuevoUsuario));
+    }
+
+    @PostMapping("/register/admin")
+    @PreAuthorize("hasRole('SA')")
+    public ResponseEntity<UsuarioDTO.Response> registerAdmin(@Valid @RequestBody UsuarioDTO.Create data) {
+        Usuario nuevoUsuario = this.authService.registerAdmin(data);
+        return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDTO.Response.fromEntity(nuevoUsuario));
+    }
+
+    @PostMapping("/register/sa")
+    @PreAuthorize("hasRole('SA')")
+    public ResponseEntity<UsuarioDTO.Response> registerSa(@Valid @RequestBody UsuarioDTO.Create data) {
+        Usuario nuevoUsuario = this.authService.registerSa(data);
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioDTO.Response.fromEntity(nuevoUsuario));
     }
 

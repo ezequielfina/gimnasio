@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class ProvinciaController {
     private final ProvinciaService provinciaService;
 
     @PostMapping
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<ProvinciaDTO.Response> create(@Valid @RequestBody ProvinciaDTO.Create data) {
         Provincia provincia = this.provinciaService.create(data);
 
@@ -29,6 +31,7 @@ public class ProvinciaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     public ResponseEntity<ProvinciaDTO.Response> readById(@PathVariable UUID id) {
         Provincia provincia = this.provinciaService.getById(id);
 
@@ -38,6 +41,7 @@ public class ProvinciaController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     public ResponseEntity<List<ProvinciaDTO.Response>> readAll() {
         List<Provincia> provincias = this.provinciaService.getAll();
         List<ProvinciaDTO.Response> listaDto = new ArrayList<>();
@@ -50,6 +54,7 @@ public class ProvinciaController {
     }
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<ProvinciaDTO.Response> updateById(@PathVariable UUID id, @Valid @RequestBody ProvinciaDTO.Update data) {
         Provincia provincia = this.provinciaService.updateById(id, data);
 
@@ -59,6 +64,7 @@ public class ProvinciaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('SA')")
     public ResponseEntity<Void> deleteById(@PathVariable UUID id) {
         this.provinciaService.deleteById(id);
 

@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -22,7 +24,7 @@ public class UsuarioService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public Usuario register (UsuarioDTO.Create data) {
+    private Usuario register (UsuarioDTO.Create data, Rol rol) {
         boolean b_username = this.usuarioRepository.existsByUsername(data.username());
         if (b_username) {
             throw new RecursoDuplicadoException("Ya existe usuario con username: " + data.username());
@@ -37,11 +39,29 @@ public class UsuarioService {
                 .username(data.username())
                 .email(data.email())
                 .password(this.passwordEncoder.encode(data.password()))
-                .rol(Rol.ROLE_USUARIO)
+                .rol(rol)
                 .isEnabled(true)
                 .build();
 
         return this.usuarioRepository.save(usuario);
+    }
+
+    public Usuario registerUsuario(UsuarioDTO.Create data) {
+        return this.register(data, Rol.ROLE_USUARIO);
+    }
+
+    public Usuario registerAdmin(UsuarioDTO.Create data) {
+        return this.register(data, Rol.ROLE_ADMIN);
+    }
+
+    public Usuario registerSa(UsuarioDTO.Create data) {
+        return this.register(data, Rol.ROLE_SA);
+    }
+
+    public Usuario readById(UUID id) {
+        return this.usuarioRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Usuario no encontrado con ID " + id)
+        );
     }
 
     @Transactional(readOnly = true)
