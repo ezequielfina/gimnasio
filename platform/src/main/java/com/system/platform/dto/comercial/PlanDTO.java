@@ -31,7 +31,7 @@ public final class PlanDTO {
             UUID id,
             String nombre,
             boolean isEnabled,
-            @Nullable PlanDTO.Base planPadre,
+            @Nullable PlanDTO.Response planPadre,
             Object permisos
     ) {
         public static Response fromEntity (Plan data) {
@@ -39,11 +39,10 @@ public final class PlanDTO {
                     data.getId(),
                     data.getNombre(),
                     data.getIsEnabled(),
-                    Response.fromEntity(data.getPlanPadre()).planPadre(),
+                    data.getPlanPadre() != null ? Response.fromEntity(data.getPlanPadre()) : null,
                     data.getPermisos()
             );
         }
     }
-
 
 }
