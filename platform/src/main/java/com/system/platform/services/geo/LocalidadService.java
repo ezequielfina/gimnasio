@@ -5,6 +5,7 @@ import com.system.platform.dto.geo.LocalidadDTO;
 import com.system.platform.entities.geo.Localidad;
 import com.system.platform.entities.geo.Partido;
 import com.system.platform.repositories.geo.LocalidadRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class LocalidadService {
+public class LocalidadService implements ICrudService<Localidad, LocalidadDTO.Create> {
 
     private final LocalidadRepository localidadRepository;
     private final PartidoService partidoService;

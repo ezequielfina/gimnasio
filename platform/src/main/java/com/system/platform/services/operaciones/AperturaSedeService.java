@@ -5,6 +5,7 @@ import com.system.platform.dto.operaciones.AperturaSedeDTO;
 import com.system.platform.entities.operaciones.AperturaSede;
 import com.system.platform.entities.operaciones.Sede;
 import com.system.platform.repositories.operaciones.AperturaSedeRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class AperturaSedeService {
+public class AperturaSedeService implements ICrudService<AperturaSede, AperturaSedeDTO.Create> {
     private final AperturaSedeRepository aperturaSedeRepository;
     private final SedeService sedeService;
 
@@ -49,7 +50,7 @@ public class AperturaSedeService {
     // TERMINAR!!!!!!!!!!!!
     // UPDATE
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         AperturaSede aperturaSede = this.readById(id);
         this.aperturaSedeRepository.delete(aperturaSede);
     }

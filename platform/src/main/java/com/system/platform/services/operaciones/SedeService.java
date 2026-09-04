@@ -4,6 +4,7 @@ import com.system.platform.dto.operaciones.SedeDTO;
 import com.system.platform.entities.geo.Localidad;
 import com.system.platform.entities.operaciones.Sede;
 import com.system.platform.repositories.operaciones.SedeRepository;
+import com.system.platform.services.ICrudService;
 import com.system.platform.services.geo.LocalidadService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class SedeService {
+public class SedeService implements ICrudService<Sede, SedeDTO.Create> {
     private final SedeRepository sedeRepository;
     private final LocalidadService localidadService;
 
@@ -48,7 +49,7 @@ public class SedeService {
    }
     */
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         Sede sede = this.readById(id);
         this.sedeRepository.delete(sede);
     }

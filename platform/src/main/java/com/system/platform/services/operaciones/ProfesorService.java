@@ -4,6 +4,7 @@ import com.system.platform.dto.operaciones.ProfesorDTO;
 import com.system.platform.entities.operaciones.Profesor;
 import com.system.platform.entities.operaciones.Sede;
 import com.system.platform.repositories.operaciones.ProfesorRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ProfesorService {
+public class ProfesorService implements ICrudService<Profesor, ProfesorDTO.Create> {
     private final ProfesorRepository profesorRepository;
     private final SedeService sedeService;
 
@@ -43,7 +44,7 @@ public class ProfesorService {
         return new Profesor();
     }
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         Profesor profesor = this.readById(id);
         this.profesorRepository.delete(profesor);
     }

@@ -4,6 +4,7 @@ import com.system.platform.entities.comercial.Plan;
 import jakarta.annotation.Nullable;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
 import java.util.UUID;
 
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public final class PlanDTO {
         String nombre,
         boolean isEnabled,
         @Nullable PlanDTO.Base planPadre,
-        Object permisos
+        Map<String, Object> permisos
     ) {}
 
     public record Update (

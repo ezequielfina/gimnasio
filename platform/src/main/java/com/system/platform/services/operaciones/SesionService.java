@@ -6,6 +6,7 @@ import com.system.platform.entities.operaciones.Clase;
 import com.system.platform.entities.operaciones.Espacio;
 import com.system.platform.entities.operaciones.Sesion;
 import com.system.platform.repositories.operaciones.SesionRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class SesionService {
+public class SesionService implements ICrudService<Sesion, SesionDTO.Create> {
     private final SesionRepository sesionRepository;
     private final ClaseService claseService;
     private final EspacioService espacioService;
@@ -57,7 +58,7 @@ public class SesionService {
     //TERMINAR!!!!!!!!!!
     //UPDATE
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         Sesion sesion = this.readById(id);
         this.sesionRepository.delete(sesion);
     }

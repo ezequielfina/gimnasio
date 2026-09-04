@@ -33,7 +33,7 @@ public class ProvinciaController {
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     public ResponseEntity<ProvinciaDTO.Response> readById(@PathVariable UUID id) {
-        Provincia provincia = this.provinciaService.getById(id);
+        Provincia provincia = this.provinciaService.readById(id);
 
         return ResponseEntity.status(HttpStatus.OK).body(
                 ProvinciaDTO.Response.fromEntity(provincia)
@@ -43,7 +43,7 @@ public class ProvinciaController {
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN', 'USUARIO', 'SA')")
     public ResponseEntity<List<ProvinciaDTO.Response>> readAll() {
-        List<Provincia> provincias = this.provinciaService.getAll();
+        List<Provincia> provincias = this.provinciaService.readAll();
         List<ProvinciaDTO.Response> listaDto = new ArrayList<>();
 
         for (Provincia p : provincias) {

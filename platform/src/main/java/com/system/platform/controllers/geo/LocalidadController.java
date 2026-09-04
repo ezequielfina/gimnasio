@@ -1,7 +1,9 @@
 package com.system.platform.controllers.geo;
 
+import com.system.platform.controllers.CrudController;
 import com.system.platform.dto.geo.LocalidadDTO;
 import com.system.platform.entities.geo.Localidad;
+import com.system.platform.services.ICrudService;
 import com.system.platform.services.geo.LocalidadService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +19,19 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/geo/localidades")
-public class LocalidadController {
+public class LocalidadController extends CrudController<Localidad, LocalidadDTO.Create, LocalidadDTO.Response> {
     private final LocalidadService localidadService;
 
+    @Override
+    protected ICrudService<Localidad, LocalidadDTO.Create> getService() {
+        return this.localidadService;
+    }
+
+    @Override
+    protected LocalidadDTO.Response toResponse(Localidad entity) {
+        return LocalidadDTO.Response.fromEntity(entity);
+    }
+    /*
     @PostMapping
     @PreAuthorize("hasRole('SA')")
     public ResponseEntity<LocalidadDTO.Response> create(@Valid @RequestBody LocalidadDTO.Create data) {
@@ -59,6 +71,6 @@ public class LocalidadController {
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.localidadService.deleteById(id);
         return ResponseEntity.noContent().build();
-    }
+    }*/
 
 }

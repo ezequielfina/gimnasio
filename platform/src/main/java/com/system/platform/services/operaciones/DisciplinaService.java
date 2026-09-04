@@ -4,6 +4,7 @@ import com.system.platform.common.exception.RecursoDuplicadoException;
 import com.system.platform.dto.operaciones.DisciplinaDTO;
 import com.system.platform.entities.operaciones.Disciplina;
 import com.system.platform.repositories.operaciones.DisciplinaRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class DisciplinaService {
+public class DisciplinaService implements ICrudService<Disciplina, DisciplinaDTO.Create> {
     private final DisciplinaRepository disciplinaRepository;
 
     public Disciplina create(DisciplinaDTO.Create data) {
@@ -44,7 +45,7 @@ public class DisciplinaService {
     // TERMINAR!!!!!!!!!!!!!!
     // UPDATE
 
-    public void delete(UUID id) {
+    public void deleteById(UUID id) {
         Disciplina disciplina = this.readById(id);
         this.disciplinaRepository.delete(disciplina);
     }

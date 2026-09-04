@@ -4,6 +4,7 @@ import com.system.platform.common.exception.DataIntegrityViolationException;
 import com.system.platform.dto.geo.ProvinciaDTO;
 import com.system.platform.entities.geo.Provincia;
 import com.system.platform.repositories.geo.ProvinciaRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ProvinciaService {
+public class ProvinciaService implements ICrudService<Provincia, ProvinciaDTO.Create> {
     private final ProvinciaRepository provinciaRepository;
 
     @Transactional
@@ -30,19 +31,19 @@ public class ProvinciaService {
     }
 
     @Transactional(readOnly = true)
-    public Provincia getById(UUID id) {
+    public Provincia readById(UUID id) {
         return this.provinciaRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("No fue encontrada provincia con id " + id)
         );
     }
 
-    public List<Provincia> getAll() {
+    public List<Provincia> readAll() {
         return this.provinciaRepository.findAll();
     }
 
     @Transactional
     public Provincia updateById(UUID id, ProvinciaDTO.Update data) {
-        Provincia provincia = this.getById(id);
+        Provincia provincia = this.readById(id);
         provincia.setNombre(data.nombre());
 
         return this.provinciaRepository.save(provincia);
@@ -50,7 +51,7 @@ public class ProvinciaService {
 
     @Transactional
     public void deleteById(UUID id) {
-        Provincia provincia = this.getById(id);
+        Provincia provincia = this.readById(id);
         this.provinciaRepository.delete(provincia);
     }
 

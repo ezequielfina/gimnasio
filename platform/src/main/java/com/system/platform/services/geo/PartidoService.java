@@ -5,6 +5,7 @@ import com.system.platform.dto.geo.PartidoDTO;
 import com.system.platform.entities.geo.Partido;
 import com.system.platform.entities.geo.Provincia;
 import com.system.platform.repositories.geo.PartidoRepository;
+import com.system.platform.services.ICrudService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class PartidoService {
+public class PartidoService implements ICrudService<Partido, PartidoDTO.Create> {
 
     private final PartidoRepository partidoRepository;
     private final ProvinciaService provinciaService;
 
     public Partido create(PartidoDTO.Create data) {
-        Provincia provincia = this.provinciaService.getById(data.provincia().id());
+        Provincia provincia = this.provinciaService.readById(data.provincia().id());
 
         boolean b = this.partidoRepository.existsByNombreAndProvincia(
                 data.nombre(),
@@ -67,7 +68,7 @@ public class PartidoService {
 
         // 3. Actualizamos la relación con Provincia si viene en el payload
         if (data.provincia() != null && data.provincia().id() != null && data.provincia().id() != partido.getId()) {
-            Provincia nuevaProvincia = this.provinciaService.getById(data.provincia().id());
+            Provincia nuevaProvincia = this.provinciaService.readById(data.provincia().id());
             partido.setProvincia(nuevaProvincia);
         }
 
